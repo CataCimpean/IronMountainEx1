@@ -1,9 +1,7 @@
 ﻿using IronMountainEx;
-using IronMountainEx1.BLL;
 using IronMountainEx1.DTO;
 using IronMountainEx1.Utils.Components;
 using System;
-using System.Data;
 using System.Windows.Forms;
 
 namespace IronMountainEx1.Controller
@@ -50,6 +48,9 @@ namespace IronMountainEx1.Controller
             dataGridViewAdmin.DataSource = AdminCRUDController.ReadDataAdmin();
             ComponentsUtil.DataGridViewAutoFit(dataGridViewAdmin, dataGridViewAdmin.Rows.Count - 1);
 
+            //remove previous Handler from buttons (INSERT, UPDATE, DELETE)
+            ClearEvents();
+
             //add new EventHandler on buttons (INSERT,UPDATE,DELETE)
             Button insert = form1.GetInsertButton();
             insert.Click += new EventHandler(form1.InsertButtonAdmin_Click);
@@ -74,6 +75,14 @@ namespace IronMountainEx1.Controller
             ComponentsUtil.SetButtonVisibility(form1.GetInsertButton());
             ComponentsUtil.SetButtonVisibility(form1.GetUpdateButton());
             ComponentsUtil.SetButtonVisibility(form1.GetDeleteButton());
+        }
+
+        //Remove previous events from button
+        private void ClearEvents()
+        {
+            form1.GetInsertButton().Click -= new EventHandler(form1.InsertButton_Click);
+            form1.GetUpdateButton().Click -= new EventHandler(form1.UpdateButton_Click);
+            form1.GetDeleteButton().Click -= new EventHandler(form1.DeleteButton_Click);
         }
     }
 }

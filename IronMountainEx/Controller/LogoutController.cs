@@ -22,6 +22,7 @@ namespace IronMountainEx1.Controller
         {
             form1.GetUsernameFromLogin().Text = string.Empty;
             form1.GetPasswordFromLogin().Text = string.Empty;
+            form1.GetTextBoxInfo().Text = string.Empty;
             ComponentsUtil.SetGroupBoxVisibility(form1.GetAuthenticationGroupBox());
             ComponentsUtil.SetGroupBoxVisibility(form1.GetGroupBoxOptions(),true);
             ComponentsUtil.SetButtonVisibility(form1.GetLogoutButton(),true);

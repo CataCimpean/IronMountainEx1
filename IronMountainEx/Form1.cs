@@ -13,7 +13,6 @@ namespace IronMountainEx
         {
             InitializeComponent();
         }
-
         //USED IN Updating and Deleting Record
         int ID = 0;
 
@@ -21,13 +20,7 @@ namespace IronMountainEx
         {
             tab.BackColor = Color.White;
         }
-
-        private void login_Click(object sender, EventArgs e)
-        {
-            LoginController ctrlLogin = new LoginController((Form1)FindForm());
-            UserDTO user = ctrlLogin.Login(usernameTextBox.Text,passwordTextbox.Text);
-        }
-
+        
         public RichTextBox GetTextBoxInfo()
         {
             return textBoxInfo;
@@ -108,19 +101,7 @@ namespace IronMountainEx
         {
 
         }
-
-        private void LogoutButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-              new LogoutController((Form1)FindForm());
-              ComponentsUtil.AppendTextToRichTextBox(GetTextBoxInfo(), "Logout Succesfully!", Color.Green, true);
-            }
-            catch (Exception ex)
-            {
-                ComponentsUtil.AppendTextToRichTextBox(GetTextBoxInfo(), String.Format("Error:{0}", ex.Message), Color.Red, true);
-            }
-        }
+        
 
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -137,17 +118,17 @@ namespace IronMountainEx
 
         }
 
-        private void UpdateButton_Click(object sender, EventArgs e)
+        public void UpdateButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void DeleteButton_Click(object sender, EventArgs e)
+        public void DeleteButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void InsertButton_Click(object sender, EventArgs e)
+        public void InsertButton_Click(object sender, EventArgs e)
         {
 
         }
@@ -155,6 +136,25 @@ namespace IronMountainEx
         private void SplitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void login_Click(object sender, EventArgs e)
+        {
+            LoginController ctrlLogin = new LoginController((Form1)FindForm());
+            UserDTO user = ctrlLogin.Login(usernameTextBox.Text, passwordTextbox.Text);
+        }
+
+        private void LogoutButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                new LogoutController((Form1)FindForm());
+                ComponentsUtil.AppendTextToRichTextBox(GetTextBoxInfo(), "Logout Succesfully!", Color.Green, true);
+            }
+            catch (Exception ex)
+            {
+                ComponentsUtil.AppendTextToRichTextBox(GetTextBoxInfo(), String.Format("Error:{0}", ex.Message), Color.Red, true);
+            }
         }
 
         public void InsertButtonAdmin_Click(object sender, EventArgs e)
@@ -177,6 +177,10 @@ namespace IronMountainEx
                     ComponentsUtil.AppendTextToRichTextBox(GetTextBoxInfo(), String.Format("Error:{0}", ex.Message), Color.Red, true);
                 }
             }
+            else
+            {
+                ComponentsUtil.AppendTextToRichTextBox(GetTextBoxInfo(), "Please add username and password", Color.Red, true);
+            }
         }
         public void UpdateButtonAdmin_Click(object sender, EventArgs e)
         {
@@ -186,9 +190,10 @@ namespace IronMountainEx
                 {
                     IronMountainEx1.Utils.Enum.Role role;
                     Enum.TryParse<IronMountainEx1.Utils.Enum.Role>(roleFromOption.SelectedItem.ToString(), out role);
-                    bool updated = AdminCRUDController.UpdateUserByAdmin(new UserDTO(ID, usernameFromOption.Text, role));
+                    bool updated = AdminCRUDController.UpdateUserByAdmin(new UserDTO(ID, usernameFromOption.Text, passwordFromOption.Text, role));
                     if (updated)
                     {
+                        passwordFromOption.Text = string.Empty;
                         RefreshDataGridView();
                         ComponentsUtil.AppendTextToRichTextBox(GetTextBoxInfo(), "Record updated Succesfully", Color.Green, true);
                     }
@@ -227,6 +232,15 @@ namespace IronMountainEx
             }
         }
 
+        public void DataGridViewAdmin_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+            usernameFromOption.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            IronMountainEx1.Utils.Enum.Role role;
+            Enum.TryParse<IronMountainEx1.Utils.Enum.Role>(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), out role);
+            roleFromOption.SelectedItem = role;
+        }
+
         private void usernameFromOption_TextChanged(object sender, EventArgs e)
         {
 
@@ -245,13 +259,9 @@ namespace IronMountainEx
             ComponentsUtil.DataGridViewAutoFit(dataGridView1, dataGridView1.Rows.Count - 1);
         }
 
-        public void DataGridViewAdmin_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-            usernameFromOption.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            IronMountainEx1.Utils.Enum.Role role;
-            Enum.TryParse<IronMountainEx1.Utils.Enum.Role>(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(),out role);
-            roleFromOption.SelectedItem = role;
+
         }
     }
 }

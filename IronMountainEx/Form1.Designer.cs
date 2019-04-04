@@ -41,6 +41,8 @@ namespace IronMountainEx
             this.passwordTextbox = new System.Windows.Forms.TextBox();
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.OptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.passwordFromOption = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.roleFromOption = new System.Windows.Forms.ComboBox();
@@ -54,8 +56,6 @@ namespace IronMountainEx
             this.MenuTab = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBoxInfo = new System.Windows.Forms.RichTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.passwordFromOption = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -195,6 +195,23 @@ namespace IronMountainEx
             this.OptionsGroupBox.Text = "Options";
             this.OptionsGroupBox.Visible = false;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(64, 114);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Password";
+            // 
+            // passwordFromOption
+            // 
+            this.passwordFromOption.Location = new System.Drawing.Point(121, 111);
+            this.passwordFromOption.Name = "passwordFromOption";
+            this.passwordFromOption.PasswordChar = '•';
+            this.passwordFromOption.Size = new System.Drawing.Size(121, 20);
+            this.passwordFromOption.TabIndex = 7;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -297,6 +314,7 @@ namespace IronMountainEx
             this.tabControl2.Size = new System.Drawing.Size(792, 193);
             this.tabControl2.TabIndex = 1;
             this.tabControl2.Visible = false;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
             // MenuTab
             // 
@@ -328,23 +346,6 @@ namespace IronMountainEx
             this.textBoxInfo.TabIndex = 0;
             this.textBoxInfo.Text = "";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(64, 114);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Password";
-            // 
-            // passwordFromOption
-            // 
-            this.passwordFromOption.Location = new System.Drawing.Point(121, 111);
-            this.passwordFromOption.Name = "passwordFromOption";
-            this.passwordFromOption.PasswordChar = '•';
-            this.passwordFromOption.Size = new System.Drawing.Size(121, 20);
-            this.passwordFromOption.TabIndex = 7;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -355,7 +356,7 @@ namespace IronMountainEx
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IronMountainExercise1";
+            this.Text = "IronMountainAppCRUD";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

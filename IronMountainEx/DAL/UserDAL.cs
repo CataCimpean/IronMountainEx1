@@ -40,6 +40,37 @@ namespace IronMountainEx1.DAL
         {
             try
             {
+                if (user.username == string.Empty) return false;
+
+                string queryUpdate = string.Empty;
+                int rowCount = -1;
+
+                SqlParameter usernameParam = new SqlParameter("@username", SqlDbType.VarChar);
+                SqlParameter passwordParam = new SqlParameter("@password", SqlDbType.VarChar);
+                SqlParameter roleIdParam = new SqlParameter("@roleId", SqlDbType.Int);
+                SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
+
+                usernameParam.Value = user.username;
+                passwordParam.Value = Encrypt.MD5(user.password);
+                roleIdParam.Value = user.rolUser;
+                idParam.Value = user.idUser;
+
+                if (user.password != null && user.password != string.Empty)
+                {
+                    queryUpdate = "UPDATE Users SET username=@username, roleId=@roleId, password=@password WHERE id = @id SELECT @@ROWCOUNT";
+                    rowCount = (int)SqlHelper.ExecuteNonQuery(GetIronDBConnection(), System.Data.CommandType.Text, queryUpdate,
+                                    usernameParam, roleIdParam, passwordParam, idParam);
+                }
+                else
+                {
+                    queryUpdate = "UPDATE Users SET username=@username, roleId=@roleId  WHERE id = @id SELECT @@ROWCOUNT";
+                    rowCount = (int)SqlHelper.ExecuteNonQuery(GetIronDBConnection(), System.Data.CommandType.Text, queryUpdate,
+                               usernameParam, roleIdParam, idParam);
+
+                }
+                return rowCount == 1 ? true : false;
+
+                /*
                 string querySQL = "UPDATE Users SET username=@username, roleId=@roleId WHERE id = @id SELECT @@ROWCOUNT";
                 int rowCount = (int)SqlHelper.ExecuteNonQuery(GetIronDBConnection(), System.Data.CommandType.Text, querySQL,
                        new SqlParameter() { ParameterName = "@username", Value = user.username, SqlDbType = System.Data.SqlDbType.NVarChar },
@@ -47,6 +78,7 @@ namespace IronMountainEx1.DAL
                        new SqlParameter() { ParameterName = "@id", Value = (int)user.idUser, SqlDbType = System.Data.SqlDbType.Int });
 
                 return rowCount == 1 ? true : false;
+                */
             }
             catch (Exception ex) { throw ex; }
         }
