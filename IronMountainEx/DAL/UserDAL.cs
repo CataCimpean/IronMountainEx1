@@ -69,16 +69,6 @@ namespace IronMountainEx1.DAL
 
                 }
                 return rowCount == 1 ? true : false;
-
-                /*
-                string querySQL = "UPDATE Users SET username=@username, roleId=@roleId WHERE id = @id SELECT @@ROWCOUNT";
-                int rowCount = (int)SqlHelper.ExecuteNonQuery(GetIronDBConnection(), System.Data.CommandType.Text, querySQL,
-                       new SqlParameter() { ParameterName = "@username", Value = user.username, SqlDbType = System.Data.SqlDbType.NVarChar },
-                       new SqlParameter() { ParameterName = "@roleId", Value = (int)user.rolUser, SqlDbType = System.Data.SqlDbType.Int },
-                       new SqlParameter() { ParameterName = "@id", Value = (int)user.idUser, SqlDbType = System.Data.SqlDbType.Int });
-
-                return rowCount == 1 ? true : false;
-                */
             }
             catch (Exception ex) { throw ex; }
         }
